@@ -5,6 +5,6 @@ use crate::share::models::Torrent;
 use crate::share::models::Media;
 
 #[async_trait]
-pub trait UploadDriven:Send + Sync {
-    fn upload(&self,torrent:Torrent) -> Result<Media,Box<dyn Error>>;
+pub trait UploadDriven: Send + Sync {
+    async fn upload(&self,torrent:Torrent) -> Result<Media,Box<dyn Error>>;
 }
