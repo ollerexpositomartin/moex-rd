@@ -13,7 +13,8 @@ pub struct UploadController {
 
 #[async_trait]
 impl UploadDriver for UploadController {
-    async fn upload(&self, torrent: Torrent) -> Result<HttpResponse, Box<dyn Error>> {
+    async fn upload(&self) -> Result<HttpResponse, Box<dyn Error>> {
+        println!("HOLA");
         //self.service.upload(torrent);
         return Ok(HttpResponse::Ok().body("Ok"));
     }
@@ -22,5 +23,10 @@ impl UploadDriver for UploadController {
 impl UploadController {
     pub fn new(service: Box<dyn UploadDriven>) -> Box<dyn UploadDriver> {
        Box::new(Self{service: service})
+    }
+
+    pub async fn upload(controller: web::Data<Arc<UploadController>>) -> Result<HttpResponse, Box<dyn Error>> {
+        controller.upload();
+        return Ok(HttpResponse::Ok().body("Ok"));
     }
 }

@@ -12,9 +12,11 @@ async fn main() -> std::io::Result<()> {
     let u = Arc::new(UploadController::new(RdRepository::new()));
 
     HttpServer::new(move || {
-        App::new().service(
+        App::new()
+        .app_data(web::Data::new(u.clone()))
+        .service(
             web::resource("/upload")
-                .route(web::post().to(upload)), // Define el manejador
+                .route(web::post().to(UploadController::upload)), // Define el manejador
         )
     })
     .bind(("127.0.0.1", 8080))?

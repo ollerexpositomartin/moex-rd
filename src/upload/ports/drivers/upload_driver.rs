@@ -7,5 +7,5 @@ use crate::share::models::Torrent;
 
 #[async_trait]
 pub trait UploadDriver: Send + Sync {
-   async fn upload(&self, torrent:Torrent) -> Result<HttpResponse, Box<dyn Error>>;
+   async fn upload(&self) -> Result<HttpResponse, Box<dyn Error>>;
 }
